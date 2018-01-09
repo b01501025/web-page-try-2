@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title="VisPractice"></title>
+	<meta charset="utf-8">
+	<script src="https://d3js.org/d3.v3.min.js"></script>
+	<script>
+		
+		//定義畫圖的function
+		function Yourname(hi){
+
+			//svg的selection
+			var canvas = d3.select("body").append("svg").attr("width", 800).attr("height", 400);
+			
+			//與data數相符的空selection (選在在svg底下)
+			var spaceForData = canvas.selectAll("circle").data(hi).enter();
+			
+			//新增文字
+			canvas.append("text").text("LAB3").attr("x", 350).attr("y", 15);
+			
+			//在每個Selection裡面新增circle
+			spaceForData.append("circle").attr({
+			//d = [{"Age":"~10", "Male":833, "Female":625}, {...}, ...]
+				"cx": function(d){return 350 + d.Male/100},
+				"cy": function(d, n){return n*20 + 50},
+				"r": "10px",
+			})
+		}
+		//先讀取檔案，確定讀取完畢後才執行callback
+		d3.csv("death.95.csv", Yourname)
+		
+	</script>
+</head>
+<body>
+</body>
+</html>
